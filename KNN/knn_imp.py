@@ -16,17 +16,24 @@ class Knn:
         return dis
 
     def fit(self, x, y):
-        self.x = x
         self.y = y
 
+        self.mean = x.mean(axis = 0)
+        self.std = x.std(axis = 0)
+        self.x = (x - self.mean) / self.std
+
+    def _normalize_sample(self, sample):
+        return (sample - self.mean) / self.std   
+
     def _predict(self, sample):
+        sample = self._normalize_sample(sample)
         distances = []
         for i in range(0, len(self.x)):
             dis = self.calculate_square_distance(self.x[i], sample)
             distances.append([dis, self.y[i]])       
 
         distances.sort(key=lambda pair: pair[0])
-        ## takes first k and check the majority 
+        # Takes the first k and performs majority voting
         k_labels = [label for(_, label) in distances[:self.k]]
         most_common = Counter(k_labels).most_common(1)
         return most_common[0][0]
