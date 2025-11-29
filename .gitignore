@@ -8,6 +8,8 @@ __pycache__/
 .venv/
 venv/
 env/
+ML/
+*.drawio
 
 # Ignore Jupyter notebook checkpoints
 .ipynb_checkpoints/
