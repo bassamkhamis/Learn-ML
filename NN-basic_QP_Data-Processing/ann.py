@@ -25,10 +25,10 @@ D = 4   # input size
 H = 10   # hidden neurons
 C = 3   # output size
 
-W1 = np.random.randn(D, H)
+W1 = np.random.randn(D, H) * np.sqrt(1 / D)
 b1 = np.zeros((1, H))
 
-W2 = np.random.randn(H, C)
+W2 = np.random.randn(H, C) * np.sqrt(1 / H)
 b2 = np.zeros((1, C))
 
 def forward(X):
@@ -79,9 +79,9 @@ X = (X - X.mean(axis=0)) / X.std(axis=0)
 # One-hot encode labels
 Y = np.eye(3)[y]
 
-lr = 0.01
+lr = 0.09
 
-for epoch in range(5000):
+for epoch in range(20000):
     z1, a1, z2, y_hat = forward(X)
     loss = mse(y_hat, Y)
     backward(X, Y, z1, a1, z2, y_hat, lr)
@@ -92,8 +92,8 @@ for epoch in range(5000):
 print("\nPredictions:")
 out = forward(X)[-1]
 np.round(out, out=out)
-accurcy = np.mean(out == Y)
-print("Accurcy: ", accurcy)
+accuracy = np.mean(out == Y)
+print("Accuracy: ", accuracy)
 
 
 
