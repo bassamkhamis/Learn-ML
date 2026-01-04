@@ -43,4 +43,4 @@ Thumbs.db
 .vscode/
 *.swp
 *.pdf
-
+DL/8-temporal_CNN/UCI HAR Dataset/*   
